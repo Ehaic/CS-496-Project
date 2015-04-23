@@ -1,0 +1,9 @@
+_author_ = 'Andrew'
+import lxml.html as lh
+
+try: f = open('test.html', 'r')
+
+except IOError as e:
+    print ("I/O error({0}): {1}".format(e.errno, e.strerror))
+
+tree = lh.document_fromstring(f)
