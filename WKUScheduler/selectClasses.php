@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html>
     <script src="JS/jquery-2.1.3.min.js"></script>
-        <script>$( document ).ready(function() {
-                $('#addClass').click(function(){
-    var text = $('#sub').val() + " " +  $('#cn').val() + "<input type = 'hidden' name = 'classes[]' value = '" + $('#sub').val() + " " + $('#cn').val() + "'/>" + '<button>x</button>';
-    if(text.length){
-        $('<li />', {html: text}).appendTo('ul.justList')
-    }
-});
+    <script>$( document ).ready(function() {
+        $('#addClass').click(function(){
+            var text = $('#sub').val() + " " +  $('#cn').val() + "<input type = 'hidden' name = 'classes[]' value = '" 
+            + $('#sub').val() + " " + $('#cn').val() + "'/>" + '<button>x</button>';
 
-$('ul').on('click','button' , function(el){
-    $(this).parent().remove()
-});
-                                                });
-            </script>
+            if(text.length){
+                $('<li />', {html: text}).appendTo('ul.justList')
+            }
+        });
+
+        $('ul').on('click','button' , function(el){
+            $(this).parent().remove()
+        });
+    });
+    </script>
 	<head>
 		<title > WKU Class Scheduler </title>
 		<link rel="stylesheet" type="text/css" href="CSS/scheduler.css">
 	</head>
     <body>
 	<div class="wrapper">
-    
 		<div class="header">
         <a href = "index.html"><img style = "float: left" src = "Images/logo.png" alt = "WKU Class Scheduler"></img></a>
-        <a href="selectClasses.html">
+        <a href="selectClasses.php">
         <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClassesSelected.png" alt = "Select Classes"></img></a>
         <a href="schedule.html">
         <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/schedule.png" alt = "Schedule"></img></a>
@@ -63,14 +64,15 @@ $('ul').on('click','button' , function(el){
             $_POST['classes'];
             ?>
             </select>
-                <ul class="justList"></ul>
             <br>
             
             Select Course Num:<br>
-           <input type="test" id="cn" />
-            <input type="submit">Submit Classes</button>
+            <input type="test" id="cn" />
             </form>
             <button id="addClass">Add Class</button>
+            <br>
+            <input type="submit" style="position: absolute; top: 145; right: 150px;">Submit Classes</button>
+            <ul class="justList" style="position: absolute; top: 145; right: 450px;"></ul>
             
         
 		</div>
