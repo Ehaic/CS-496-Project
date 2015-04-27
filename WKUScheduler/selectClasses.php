@@ -42,7 +42,7 @@
             <br>
            
             Select Class Subject:<br>
-            <form action = "test.php" method = "post"> 
+            <form action = "schedule.php" method = "post"> 
             
             <select id = "sub" name="sub">
             <?php
