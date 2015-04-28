@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html>
     <script src="JS/jquery-2.1.3.min.js"></script>
-    <script>$( document ).ready(function() {
-        $('#addClass').click(function(){
-            var text = $('#sub').val() + " " +  $('#cn').val() + "<input type = 'hidden' name = 'classes[]' value = '" 
-            + $('#sub').val() + " " + $('#cn').val() + "'/>" + '<button>x</button>';
+        <script>$( document ).ready(function() {
+                $('#addClass').click(function(){
+    var text = $('#sub').val() + " " +  $('#cn').val() + "<input type = 'hidden' name = 'classes[]' value = '" + $('#sub').val() + " " + $('#cn').val() + "'/>" + '<button>x</button>';
+    if(text.length){
+        $('<li />', {html: text}).appendTo('ul.justList')
+    }
+});
 
-            if(text.length){
-                $('<li />', {html: text}).appendTo('ul.justList')
-            }
-        });
-
-        $('ul').on('click','button' , function(el){
-            $(this).parent().remove()
-        });
-    });
-    </script>
+$('ul').on('click','button' , function(el){
+    $(this).parent().remove()
+});
+                                                });
+            </script>
 	<head>
 		<title > WKU Class Scheduler </title>
 		<link rel="stylesheet" type="text/css" href="CSS/scheduler.css">
 	</head>
     <body>
 	<div class="wrapper">
+    
 		<div class="header">
         <a href = "index.html"><img style = "float: left" src = "Images/logo.png" alt = "WKU Class Scheduler"></img></a>
         <a href="selectClasses.php">
         <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClassesSelected.png" alt = "Select Classes"></img></a>
-        <a href="schedule.html">
+        <a href="schedule.php">
         <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/schedule.png" alt = "Schedule"></img></a>
         <a href="calendar.html">
         <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/calendar.png" alt = "Calendar"></img></a>
@@ -54,7 +53,7 @@
 		  		echo "Failed to connect to MySQL: " . mysqli_connect_error();  
             
 			//store all questions in result variable
-			$result = mysqli_query($con,"SELECT DISTINCT Subject FROM classes");
+			$result = mysqli_query($con,"SELECT DISTINCT Subject FROM classes ORDER BY Subject ASC");
 
 			//while we still have questions in result
 			while($row = mysqli_fetch_array($result)) 
@@ -64,15 +63,15 @@
             $_POST['classes'];
             ?>
             </select>
+                <ul class="justList"></ul>
             <br>
             
             Select Course Num:<br>
-            <input type="test" id="cn" />
+           <input type="test" id="cn" />
+            <input type="submit"></button>
             </form>
+            <br><br>Submit Classes<br>
             <button id="addClass">Add Class</button>
-            <br>
-            <input type="submit" style="position: absolute; top: 145; right: 150px;">Submit Classes</button>
-            <ul class="justList" style="position: absolute; top: 145; right: 450px;"></ul>
             
         
 		</div>
