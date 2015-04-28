@@ -46,7 +46,7 @@ $('ul').on('click','button' , function(el){
             <select id = "sub" name="sub">
             <?php
             //connect to the MySQL database
-			$con=mysqli_connect("localhost","Taylor","tama4793!","scheduler");
+			$con=mysqli_connect("localhost","Taylor","tama4793!","Scheduler2");
 
 			// Check connection and state if connection failed
 			if (mysqli_connect_errno())

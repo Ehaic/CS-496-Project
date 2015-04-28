@@ -25,7 +25,7 @@
         <br>
         <?php
             //connect to the MySQL database
-            $con=mysqli_connect("localhost","Taylor","tama4793!","scheduler");
+            $con=mysqli_connect("localhost","Taylor","tama4793!","Scheduler2");
             // Check connection and state if connection failed
             if (mysqli_connect_errno())
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();              
@@ -42,12 +42,16 @@
                 if(substr($classes[0], $i, 1) == ' ')
                 {        
                     //store all questions in result variable
-                    $result = mysqli_query($con,"SELECT CRN from classes where Subject = '$test'");        
+                    $result = mysqli_query($con,"SELECT CRN, Subject, CourseNum from classes where Subject = '$test'");        
                     //while we still have questions in result
                     while($row = mysqli_fetch_array($result)) 
                     {
                         echo $row['CRN'];
-                        echo ", ";
+                        echo ":   ";
+                        echo $row['Subject'];
+                        echo " ";
+                        echo $row['CourseNum'];
+                        echo "<br>";
                     }
                     break;
                 }
