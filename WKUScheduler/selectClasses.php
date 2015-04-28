@@ -23,9 +23,9 @@ $('ul').on('click','button' , function(el){
     
 		<div class="header">
         <a href = "index.html"><img style = "float: left" src = "Images/logo.png" alt = "WKU Class Scheduler"></img></a>
-        <a href="selectClasses.html">
+        <a href="selectClasses.php">
         <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClassesSelected.png" alt = "Select Classes"></img></a>
-        <a href="schedule.html">
+        <a href="schedule.php">
         <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/schedule.png" alt = "Schedule"></img></a>
         <a href="calendar.html">
         <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/calendar.png" alt = "Calendar"></img></a>
@@ -46,14 +46,14 @@ $('ul').on('click','button' , function(el){
             <select id = "sub" name="sub">
             <?php
             //connect to the MySQL database
-			$con=mysqli_connect("localhost","Taylor","tama4793!","scheduler");
+			$con=mysqli_connect("localhost","Taylor","tama4793!","Scheduler2");
 
 			// Check connection and state if connection failed
 			if (mysqli_connect_errno())
 		  		echo "Failed to connect to MySQL: " . mysqli_connect_error();  
             
 			//store all questions in result variable
-			$result = mysqli_query($con,"SELECT DISTINCT Subject FROM classes");
+			$result = mysqli_query($con,"SELECT DISTINCT Subject FROM classes ORDER BY Subject ASC");
 
 			//while we still have questions in result
 			while($row = mysqli_fetch_array($result)) 
@@ -68,8 +68,9 @@ $('ul').on('click','button' , function(el){
             
             Select Course Num:<br>
            <input type="test" id="cn" />
-            <input type="submit">Submit Classes</button>
+            <input type="submit"></button>
             </form>
+            <br><br>Submit Classes<br>
             <button id="addClass">Add Class</button>
             
         
