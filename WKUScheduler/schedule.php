@@ -50,6 +50,7 @@
                 while($row = mysqli_fetch_array($result)) 
                 {
                     echo "{$row['CRN']} - {$row['Subject']} {$row['CourseNum']}-{$row['Section']}, {$row['Day']} at {$row['Location']}<br>";
+                    echo "";
                 }
             }
         ?>
