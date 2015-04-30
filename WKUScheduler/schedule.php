@@ -71,8 +71,6 @@
             // Check connection and state if connection failed
             if (mysqli_connect_errno())
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();              
-            //store all questions in result variable
-            $result = mysqli_query($con,"SELECT CRN from classes where Subject = '$test'");
 
             $subject = $_POST["subject"];
             $courseNum = $_POST["courseNum"];
@@ -83,17 +81,19 @@
 
             for($i = 0; $i < count($subject); $i++)
             {
-                echo "Running Query. . .<br>";
+                echo "<br>If nothing appears after this the query didn't completely work (delete me later)<br>";
                 $subj = $subject[$i];
                 $cNum = $courseNum[$i];
                 //store all questions in result variable
-                $result = mysqli_query($con,"SELECT CRN, Subject, CourseNum, Section, Location, Day FROM Classes 
-                    WHERE Subject = '$subj' AND CourseNum = '$cNum'");        
+                $result = mysqli_query($con,"SELECT Classes.CRN, Classes.Subject, Classes.CourseNum, Classes.Section, Instructors.FirstName, Instructors.LastName 
+                    FROM Classes, Instructors WHERE Classes.InstructorID = Instructors.InstructorID AND Subject = '$subj' AND CourseNum = '$cNum'");        
                 //while we still have questions in result
                 while($row = mysqli_fetch_array($result)) 
                 {
-                    echo "{$row['CRN']} - {$row['Subject']} {$row['CourseNum']}-{$row['Section']}, {$row['Day']} at {$row['Location']}<br>";
+                    echo "<font size='4'> - {$row['CRN']} - {$row['Subject']} {$row['CourseNum']}-{$row['Section']}, {$row['Day']} in 
+                    {$row['Location']}, taught by {$row['FirstName']}. {$row['LastName']}<br>";
                 }
+                echo "<br>";
             }
         ?>
         </center>
