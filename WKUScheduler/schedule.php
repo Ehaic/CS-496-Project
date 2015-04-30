@@ -35,6 +35,22 @@
             position:{ my: 'right bottom', at: 'right bottom', of: window }});
         });
             
+            $( document ).ready(function() {
+            for(i = 0; i <5; i++)
+            {
+                var text = 'Hello' + i + '<button>x</button>';
+                
+            if(text.length){
+                $('<li />', {html: text}).appendTo('ul.CourseList')
+            }
+                
+            }
+        });
+        $('ul').on('click','button' , function(el){
+            $(this).parent().remove()
+        });
+    });</script>
+            
         </script>
 	</head>
     
@@ -65,6 +81,10 @@
             
         <br>
         <center>
+        <ul name = "courseList" id = "courseList">
+            
+        </ul>    
+            
         <?php
             //connect to the MySQL database
             $con=mysqli_connect("localhost","Taylor","tama4793!","Scheduler2");
