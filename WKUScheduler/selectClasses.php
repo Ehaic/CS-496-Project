@@ -64,8 +64,9 @@
             <input type="test" id="cn" />
             <input type="submit"></button>
             </form>
+            <button id="addClass">Add Class</button>    
             <br><br>Submit Classes<br>
-            <button id="addClass">Add Class</button>
+            
         
 		</div>
     
