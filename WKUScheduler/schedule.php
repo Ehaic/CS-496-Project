@@ -18,6 +18,7 @@
             }
                      
         </style>
+        
         <script>
         $(function() {
             $( "#removed" ).dialog({
@@ -36,22 +37,23 @@
         });
             
             $( document ).ready(function() {
-            for(i = 0; i <5; i++)
-            {
-                var text = 'Hello' + i + '<button>x</button>';
-                
+				var i = 0;
+        $('#add').click(function(){
+			i++
+            var text = "hello " + i + "  <button>Remove</button>";
             if(text.length){
                 $('<li />', {html: text}).appendTo('ul.CourseList')
             }
-                
-            }
         });
-        $('ul').on('click','button' , function(el){
-            $(this).parent().remove()
+        $('ul.CourseList').on('click','button' , function(addScheduleList){
+            $(this).parent().appendTo('ul.ScheduleList')
         });
-    });</script>
-            
-        </script>
+		$('ul.ScheduleList').on('click','button', function(removeScheduleList){
+			$(this).parent().appendTo('ul.CourseList')
+		});
+    });
+   </script>
+    
 	</head>
     
 	<div class="wrapper">
@@ -73,17 +75,18 @@
         
         <div id="removed" title="Removed Classes">
             <p>Conflicting Classes</p>
+            <ul style="list-style: none" class="RemovedList"></ul>
         </div>    
             
         <div id="schedule" title="Schedule">
             <p>Scheduled Classes</p>
+            <ul style="list-style: none" class="ScheduleList"></ul>
         </div>
             
         <br>
         <center>
-        <ul name = "courseList" id = "courseList">
-            
-        </ul>    
+        <ul style="list-style: none" class = "CourseList"></ul>    
+        <button id="add">Test</button>
             
         <?php
             //connect to the MySQL database
