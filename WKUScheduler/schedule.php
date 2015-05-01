@@ -94,7 +94,7 @@
             // Check connection and state if connection failed
             if (mysqli_connect_errno())
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();              
-
+			$Courses_Array = array();
             //Retrieve subject data from database
             $subject = $_POST["subject"];
             //Retrieve courseNum data from database
@@ -188,10 +188,15 @@
                 //while we still have questions in result
                 while($row = mysqli_fetch_array($result)) 
                 {
+					$temp_Array = array($row['Subject'] , $row['CourseNum'],$row['Credits'], $row['Title'], $row['Fee'], $row['Remaining'], $row['FirstName'], $row['LastName'], $row['Time'], $row['Days'], $row['Location'], $row['Date']);
+					array_push($Courses_Array, $temp_Array);
                     echo "<font size='4'> | {$row['Subject']} | {$row['CourseNum']} | {$row['Credits']} | {$row['Title']} | {$row['Fee']} | {$row['Remaining']}
                      | {$row['FirstName']}. {$row['LastName']} | {$row['Time']} | {$row['Days']} | {$row['Location']} | {$row['Date']} | <br>";
                 }
             }
+			echo '<pre>';
+			print_r($Courses_Array);
+			echo '</pre>';
         ?>
         </center>
 		</div>
