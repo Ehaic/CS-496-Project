@@ -14,7 +14,10 @@
             
             .ui-dialog 
             {
-                position:absolute;
+                position:fixed;
+                top:400px;
+                bottom:0px; 
+                left:0px;
             }
                      
         </style>
