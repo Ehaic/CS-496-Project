@@ -20,6 +20,8 @@
         </style>
         
         <script>
+		
+		
         $(function() {
             $( "#removed" ).dialog({
             dialogClass: "no-close",
@@ -47,10 +49,13 @@
         });
         $('ul.CourseList').on('click','button' , function(addScheduleList){
             $(this).parent().appendTo('ul.ScheduleList')
+			window.alert(JSON.stringify(the_array));
         });
 		$('ul.ScheduleList').on('click','button', function(removeScheduleList){
 			$(this).parent().appendTo('ul.CourseList')
 		});
+		
+		
     });
    </script>
     
@@ -198,6 +203,10 @@
 			print_r($Courses_Array);
 			echo '</pre>';
         ?>
+        <script type="text/javascript">
+		// pass PHP variable declared above to JavaScript variable
+		var the_array = <?php echo json_encode($Courses_Array) ?>;
+		</script>
         </center>
 		</div>
 	</div>
