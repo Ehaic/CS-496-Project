@@ -58,15 +58,14 @@
             $_POST['courseNum'];
             ?>
             </select>
-            <ul class="justList"></ul>
+            <ul style="list-style: none" class="justList"></ul>
             <br>
             Select Course Num:<br>
             <input type="test" id="cn" />
-            <input type="submit"></button>
-            </form>
-            <button id="addClass">Add Class</button>    
+            <button id="addClass" type="button">Add Class</button>   
             <br><br>Submit Classes<br>
-            
+            <button type="submit">Submit Classes</button>
+            </form>
         
 		</div>
     
