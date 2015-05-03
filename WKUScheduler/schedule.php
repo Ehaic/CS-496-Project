@@ -28,6 +28,7 @@
             dialogClass: "no-close",
             draggable: false,
             resizable: false,
+            maxHeight: 400,
             position:{ my: 'left bottom', at: 'left bottom', of: window }});
         });
         
@@ -36,6 +37,7 @@
             dialogClass: "no-close",
             draggable: false,
             resizable: false,
+            maxHeight: 400,
             position:{ my: 'right bottom', at: 'right bottom', of: window }});
         });
             
@@ -77,12 +79,10 @@
 		<div class="content" id = "content">
         
         <div id="removed" title="Removed Classes">
-            <p>Conflicting Classes</p>
             <ul style="list-style: none" class="RemovedList"></ul>
         </div>    
             
         <div id="schedule" title="Schedule">
-            <p>Scheduled Classes</p>
             <ul style="list-style: none" class="ScheduleList"></ul>
         </div>
             
