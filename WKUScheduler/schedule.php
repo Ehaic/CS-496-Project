@@ -15,6 +15,29 @@
 }
 </style>
    <script>
+	<head>
+		<title > WKU Class Scheduler </title>
+		<link rel="stylesheet" type="text/css" href="CSS/scheduler.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="JS/jquery-2.1.3.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <style>
+            .no-close .ui-dialog-titlebar-close
+            {
+                display: none;
+            }
+            
+            .ui-dialog 
+            {
+                position:fixed;
+                top:400px;
+                bottom:0px; 
+                left:0px;
+            }
+                     
+        </style>
+        
+        <script>
 		
 		
         $(function() {
@@ -22,6 +45,7 @@
             dialogClass: "no-close",
             draggable: false,
             resizable: false,
+            maxHeight: 400,
             position:{ my: 'left bottom', at: 'left bottom', of: window }});
         });
         
@@ -30,6 +54,7 @@
             dialogClass: "no-close",
             draggable: false,
             resizable: false,
+            maxHeight: 400,
             position:{ my: 'right bottom', at: 'right bottom', of: window }});
         });
    </script>
@@ -52,6 +77,41 @@
        <center>
          <div class = "CourseList"> </div>
          <?php
+    
+	</head>
+    
+	<div class="wrapper">
+		<div class="header">
+        <a href = "index.html"><img style = "float: left" src = "Images/logo.png" alt = "WKU Class Scheduler"></img></a>
+        <a href="selectClasses.php">
+        <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
+        <a href="schedule.php">
+        <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/scheduleSelected.png" alt = "Schedule"></img></a>
+        <a href="calendar.html">
+        <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/calendar.png" alt = "Calendar"></img></a>
+        <a href="map.html">
+        <img style = "position: absolute; bottom: 0; right: 300px" src = "Images/map.png" alt = "Map"></img></a>
+        <a style = "position: absolute; bottom: 0; right: 120px; color: white" href="">Login</a>
+        <a style = "position: absolute; bottom: 0; right: 50px; color: white" href="">Register</a>
+		</div>
+    
+		<div class="content" id = "content">
+        
+        <div id="removed" title="Removed Classes">
+            <ul style="list-style: none" class="RemovedList"></ul>
+        </div>    
+            
+        <div id="schedule" title="Schedule">
+            <ul style="list-style: none" class="ScheduleList"></ul>
+        </div>
+            
+        <br>
+        <center>
+        <ul style="list-style: none" class = "CourseList"></ul>    
+        <button id="add">Test</button>
+            
+        <?php
+>>>>>>> origin/Andrews-Awesome-Branch
             //connect to the MySQL database
             $con=mysqli_connect("localhost","Taylor","tama4793!","Scheduler2");
             // Check connection and state if connection failed
