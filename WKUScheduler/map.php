@@ -1,3 +1,7 @@
+<?php
+// Start the session
+session_start();
+?>
 <!--
 This html file is responsible for the design of the webpage which will allow the user of the web application to view their generated class maps.
 -->
@@ -31,9 +35,9 @@ This html file is responsible for the design of the webpage which will allow the
         <!--
         The tabs and their specified styles.
         -->
-        <a href="selectClasses.html">
+        <a href="selectClasses.php">
         <img style = "position: absolute; bottom: 0; right: 850px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
-        <a href="schedule.html">
+        <a href="schedule.php">
         <img style = "position: absolute; bottom: 0; right: 700px" src = "Images/schedule.png" alt = "Schedule"></img></a>
         <a href="detailedSchedule.php">
         <img style = "position: absolute; bottom: 0; right: 550px" src = "Images/detailedSchedule.png" alt = "Detailed Schedule"></img></a>
@@ -47,7 +51,6 @@ This html file is responsible for the design of the webpage which will allow the
         -->
         <a style = "position: absolute; bottom: 0; right: 120px; color: white" href="">Login</a>
         <a style = "position: absolute; bottom: 0; right: 50px; color: white" href="">Register</a>
-
 		</div>
     
         <!--
@@ -64,25 +67,31 @@ This html file is responsible for the design of the webpage which will allow the
         <div class="container">
             
             <?php
-                
-                $results = '';
-                for($i = 0; $i < strlen(){
-                    if($ [$i] == " "){
-                        break;
-                    }
-                    $results = substr('', 0, $i);
-                }
-
-                echo "<img class='map' src='images/campusMap.jpg' alt='Campus Map!'>";
-
+				//connect to the MySQL database
+				$con=mysqli_connect("localhost","Scheduler","BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF","Scheduler2");
+				// Check connection and state if connection failed
+				if (mysqli_connect_errno())
+		  			echo "Failed to connect to MySQL: " . mysqli_connect_error();  
+				//store all questions in result variable
+				$crn = $_POST['crn'];
+				$_SESSION['crn'] = $crn;
+				echo "<img class='map' src='Images/campusMap.jpg' alt='Campus Map!'>";
+				$resultArr = array();
+				for($i = 0; $i < count($crn); $i++)
+				{
+				$results = mysqli_query($con,"SELECT Location FROM Dates WHERE CRN = '$crn[$i]'");
+				$row = mysqli_fetch_array($results);
+				$results = $row['Location'];
+				$results = explode(" ", $results);
+				array_push($resultArr,$results[0]);
                 foreach($results as $aResult){
                     if($aResult == CH){
                             echo "<img class='ch' src='Dots/ch.png'></img>";
-                        }if($aResult == GCC){
+                        }elseif($aResult == GCC){
                             echo "<img class='gcc' src='Dots/gcc.png'></img>";
-                        }if($aResult == GH){
+                        }elseif($aResult == GH){
                             echo "<img class='gh' src='Dots/gh.png'></img>";
-                        }if($aResult == SH){
+                        }elseif($aResult == SH){
                             echo "<img class='sh' src='Dots/sh.png'></img>";
                         }elseif($aResult == EST){
                             echo "<img class='est' src='Dots/est.png'></img>";
@@ -123,8 +132,8 @@ This html file is responsible for the design of the webpage which will allow the
                         }elseif($aResult == TPH){
                             echo "<img class='tph' src='Dots/tph.png'></img>";
                         }
-                    }
-
+					}//for each close
+           		}//for close
             ?>
             
         </div>
