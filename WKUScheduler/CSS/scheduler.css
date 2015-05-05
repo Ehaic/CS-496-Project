@@ -36,3 +36,177 @@ body
    font-size: 90%;
    background-color: #e8e7e7;
 }
+
+.position
+{
+    padding: 200px;
+}
+
+.container{
+    position: relative;
+}
+
+.map{
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.ch{
+    position:absolute;
+    top: 140px;
+    left: 720px;
+    z-index: 3;
+}
+
+.gcc{
+    position:absolute;
+    top: 170px;
+    left: 700px;
+    z-index: 2;
+}
+
+.gh{
+    position:absolute;
+    top: 225px;
+    left: 570px;
+    z-index: 4;
+}
+
+.sh{
+    position:absolute;
+    top: 170px;
+    left: 886px;
+    z-index: 5;
+}
+
+.est{
+    position:absolute;
+    top: 203px;
+    left: 808px;
+    z-index: 6;
+}
+
+.phac{
+    position:absolute;
+    top: 345px;
+    left: 334px;
+    z-index: 7;
+}
+
+.cohh{
+    position:absolute;
+    top: 170px;
+    left: 788px;
+    z-index: 8;
+}
+
+.da{
+    position: absolute;
+    top: 203px;
+    left: 390px;
+    z-index: 9;
+}
+
+.grh{
+    position: absolute;
+    top: 377px;
+    left: 482px;
+    z-index: 10;
+}
+
+.tccw{
+    position: absolute;
+    top: 177px;
+    left: 864px;
+    z-index: 11;
+}
+
+.mmth{
+    position: absolute;
+    top: 347px;
+    left: 455px;
+    z-index: 12;
+}
+
+.mmth{
+    position: absolute;
+    top: 369px;
+    left: 382px;
+    z-index: 13;
+}
+
+.ie{
+    position:absolute;
+    top: 206px;
+    left: 735px;
+    z-index 14;
+}
+
+.ss{
+    position:absolute;
+    top: 265px;
+    left: 284px;
+    z-index 15;
+}
+
+.ac{
+    position: absolute;
+    top: 307px;
+    left: 458px;
+    z-index: 16;
+}
+
+.gwh{
+    position: absolute;
+    top: 135px;
+    left: 711px;
+    z-index: 17;
+}
+
+.fs{
+    position: absolute;
+    top: 179px;
+    left: 568px;
+    z-index: 18;
+}
+
+.hcic{
+    position: absolute;
+    top: 298px;
+    left: 590px;
+    z-index: 19;
+}
+
+.crd{
+    position: absolute;
+    top: 523px;
+    left: 46px;
+    z-index: 20;
+    visibility: hidden;
+}
+
+.mh{
+    position: absolute;
+    top: 232px;
+    left: 614px;
+    z-index: 21;
+    visibility: hidden;
+}
+
+.tph{
+    position: absolute;
+    top: 341px;
+    left: 410px;
+    z-index: 22;
+    visibility: hidden;
+}
+
+.ebs{
+    position: absolute;
+    top: 212px;
+    left: 875px;
+    z-index: 23;
+    visibility: hidden;
+}
