@@ -1,9 +1,0 @@
-SELECT results.CRN, results.Subject, results.CourseNum, results.Section, results.Location, results.Day, Instructors.FirstName, Instructors.LastName, Dates.Time
-
-FROM (SELECT CRN, Subject, CourseNum, Section, Location, Day, InstructorID
-FROM Classes  
-WHERE Subject = '$subj' AND CourseNum = '$cNum'
-ORDER BY Section ASC) AS results
-
-INNER JOIN Instructors ON Classes.InstructorID = Instructors.InstructorID 
-INNER JOIN Dates ON Classes.CRN = Dates.CRN

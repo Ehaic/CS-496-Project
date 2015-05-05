@@ -13,9 +13,9 @@
         <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
         <a href="schedule.php">
         <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/schedule.png" alt = "Schedule"></img></a>
-        <a href="calendar.html">
+        <a href="calendar.php">
         <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/calendarSelected.png" alt = "Calendar"></img></a>
-        <a href="map.html">
+        <a href="map.php">
         <img style = "position: absolute; bottom: 0; right: 300px" src = "Images/map.png" alt = "Map"></img></a>
 
         <a style = "position: absolute; bottom: 0; right: 120px; color: white" href="">Login</a>
