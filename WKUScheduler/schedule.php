@@ -120,8 +120,18 @@ session_start();
 	arr.push(end_date);
 	return arr;
    }
-   
-   function compareDays(a, b){
+   </script>
+   <!-- another method -->
+   <script type="text/javascript">
+   function formGenerate(a)
+   {
+	   for(var i = 0; i < a.length; i++)
+	   {
+	  	 var text = "<input type = 'hidden' name = 'crn[]' value = '" + a[i] + "'/>"
+		 console.log(text);
+		 $(text).appendTo('#crnlist');
+		 console.log(text);
+	   }
    }
    </script>
    </head>
@@ -151,10 +161,11 @@ session_start();
          <div class = "CourseList"></div>
          <br>
     	<button id="SaveSchedule">Save Schedule</button>
+        <form action="map.php" id="crnlist" method="post"></form>
 	</head>
    	   <?php
             //connect to the MySQL database
-            $con=mysqli_connect("localhost","Taylor","tama4793!","Scheduler2");
+            $con=mysqli_connect("localhost","Scheduler","BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF","Scheduler2");
             // Check connection and state if connection failed
             if (mysqli_connect_errno())
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();              
@@ -389,7 +400,6 @@ session_start();
 		});
 		
 		$('#SaveSchedule').click(function(){
-			if(typeof(Storage) !== "undefined") {
     			var crn_list = [];
 				$('ul.ScheduleList>li').each(function(index, element) {
 					if(crn_list.indexOf($(this).attr('data-crn')) == -1)
@@ -397,12 +407,11 @@ session_start();
                 	crn_list.push($(this).attr('data-crn'));
 					}
             	});
-			console.log(crn_list);
-			localStorage["crns"] = JSON.stringify(crn_list);
-			alert("Classes saved please go to Calendar, Map, Or Detail page to view your schedule!")
-			} else {
-    			alert("Sorry but your browser does not support HTML storage which our site requires :(")
-			}
+				console.log(crn_list);
+				console.log("running form generate")
+				formGenerate(crn_list);
+				$('#crnlist').submit();
+			alert("Schedule saved sending you to view your schedule.");
 		});
     });
 		</script>

@@ -46,7 +46,7 @@ session_start();
             <select id = "sub" name="sub">
             <?php
             //connect to the MySQL database
-			$con=mysqli_connect("localhost","Taylor","tama4793!","Scheduler2");
+			$con=mysqli_connect("localhost","Scheduler","BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF","Scheduler2");
 			// Check connection and state if connection failed
 			if (mysqli_connect_errno())
 		  		echo "Failed to connect to MySQL: " . mysqli_connect_error();  
