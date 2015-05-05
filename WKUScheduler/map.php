@@ -35,11 +35,11 @@ This html file is responsible for the design of the webpage which will allow the
         <img style = "position: absolute; bottom: 0; right: 850px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
         <a href="schedule.html">
         <img style = "position: absolute; bottom: 0; right: 700px" src = "Images/schedule.png" alt = "Schedule"></img></a>
-        <a href="detailedSchedule.html">
+        <a href="detailedSchedule.php">
         <img style = "position: absolute; bottom: 0; right: 550px" src = "Images/detailedSchedule.png" alt = "Detailed Schedule"></img></a>
-        <a href="calendar.html">
+        <a href="calendar.php">
         <img style = "position: absolute; bottom: 0; right: 400px" src = "Images/calendar.png" alt = "Calendar"></img></a>
-        <a href="map.html">
+        <a href="map.php">
         <img style = "position: absolute; bottom: 0; right: 250px" src = "Images/mapSelected.png" alt = "Map"></img></a>
 
         <!--
