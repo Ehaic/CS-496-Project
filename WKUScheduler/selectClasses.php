@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
     <script src="JS/jquery-2.1.3.min.js"></script>
