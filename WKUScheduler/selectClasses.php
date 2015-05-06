@@ -58,7 +58,7 @@ session_start();
         });
         </script>
         <!--A div class within the css file specifying margins, width, etc.-->
-		<div class="content" style="margin-left: 200px; margin-top: 40px; font-size:18px">
+		<div class="content" style="font-size:25px">
             <!--Print a message indicating that the user should select a class subject-->
             <br>
             <center>

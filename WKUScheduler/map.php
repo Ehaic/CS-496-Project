@@ -76,24 +76,26 @@ This html file is responsible for the design of the webpage which will allow the
 				if (mysqli_connect_errno())
 		  			echo "Failed to connect to MySQL: " . mysqli_connect_error();  
 				//store all questions in result variable
-				$crn = $_POST['crn'];
-				$_SESSION['crn'] = $crn;
-				
+				$crn = $_SESSION['crn'];
                 /*
                 The class within the css files, scheduler.css, specifying the campus map position as absolute, sets the 
                 x y integers, and place it at z-index 1 to position image below any dots placed on the map.
                 */
                 echo "<img class='map' src='Images/campusMap.jpg' alt='Campus Map!'>";
 				$resultArr = array();
+				$courseNumArr = array();
+				$subjectArr = array();
 				//Get required location data for map, storing it in an array.
                 for($i = 0; $i < count($crn); $i++)
 				{
-				$results = mysqli_query($con,"SELECT Location FROM Dates WHERE CRN = '$crn[$i]'");
+				$results = mysqli_query($con,"SELECT Dates.Location, Classes.Subject, Classes.CourseNum FROM Dates, Classes WHERE Classes.CRN = Dates.CRN AND Classes.CRN = '$crn[$i]'");
 				$row = mysqli_fetch_array($results);
 				$results = $row['Location'];
 				//It splits the string into an array, adding a space character.
                 $results = explode(" ", $results);
 				array_push($resultArr,$results[0]);
+				array_push($courseNumArr, $row['CourseNum']);
+				array_push($subjectArr, $row['Subject']);
                 //For each results in the array...
                 foreach($results as $aResult){
                     //If if contains a certain location value, print its corresponding dot on the right spot of the map.
@@ -173,7 +175,8 @@ This html file is responsible for the design of the webpage which will allow the
                     and print the course number. Inbetween that are HTML brackets which indicate when it create extra rows
                     and columns.
                     */
-                    foreach($results as $aResult){
+					$i = 0;
+                    foreach($resultArr as $aResult){
                         if($aResult == CH){
                             echo "<tr>";
                             echo "<th>";    
@@ -182,6 +185,9 @@ This html file is responsible for the design of the webpage which will allow the
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == GCC){
                             echo "<tr>";
@@ -191,6 +197,9 @@ This html file is responsible for the design of the webpage which will allow the
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == GH){
                             echo "<tr>";
@@ -200,6 +209,9 @@ This html file is responsible for the design of the webpage which will allow the
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == SH){
                             echo "<tr>";
@@ -209,179 +221,240 @@ This html file is responsible for the design of the webpage which will allow the
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == EST){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='est' src='Dots/est.png'></img>";
+                            echo "<img src='Dots/est.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == PHAC){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='phac' src='Dots/phac.png'></img>";
+                            echo "<img src='Dots/phac.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == AFC){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='afc' src='Dots/afc.png'></img>";
+                            echo "<img src='Dots/afc.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == COHH){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='cohh' src='Dots/cohh.png'></img>";
+                            echo "<img src='Dots/cohh.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == DA){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='da' src='Dots/da.png'></img>";
+                            echo "<img src='Dots/da.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == GRH){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='grh' src='Dots/grh.png'></img>";
+                            echo "<img src='Dots/grh.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == TCCW){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='tccw' src='Dots/tccw.png'></img>";
+                            echo "<img src='Dots/tccw.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == MMTH){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='mmth' src='Dots/mmth.png'></img>";
+                            echo "<img src='Dots/mmth.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == MCHC){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='mchc' src='Dots/mchc.png'></img>";
+                            echo "<img src='Dots/mchc.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == IE){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='ie' src='Dots/ie.png'></img>";
+                            echo "<img src='Dots/ie.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == EBS){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='ebs' src='Dots/ebs.png'></img>";
+                            echo "<img src='Dots/ebs.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == SS){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='ss' src='Dots/ss.png'></img>";
+                            echo "<img src='Dots/ss.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == AC){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='ac' src='Dots/ac.png'></img>";
+                            echo "<img src='Dots/ac.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == GWH){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='gwh' src='Dots/gwh.png'></img>";
+                            echo "<img src='Dots/gwh.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == FS){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='fs' src='Dots/fs.png'></img>";
+                            echo "<img src='Dots/fs.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == HCIC){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='hcic' src='Dots/hcic.png'></img>";
+                            echo "<img src='Dots/hcic.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == CRD){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='crd' src='Dots/crd.png'></img>";
+                            echo "<img src='Dots/crd.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == MH){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='mh' src='Dots/mh.png'></img>";
+                            echo "<img src='Dots/mh.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }elseif($aResult == TPH){
                             echo "<tr>";
                             echo "<th>";
-                            echo "<img class='tph' src='Dots/tph.png'></img>";
+                            echo "<img src='Dots/tph.png'></img>";
                             echo "</th>";
                             echo "<th>";
                             echo $aResult;
                             echo "</th>";
+							echo "<th>";
+							echo $subjectArr[$i]." ".$courseNumArr[$i];
+							echo "</th>";
                             echo "</tr>";
                         }
+						$i++;
                     }
                     
             ?>

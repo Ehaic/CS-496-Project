@@ -308,6 +308,7 @@ session_start();
 		 var subject_array = [];
 		 var courseNum_array = [];
 		 var crn = null;
+		 //On document ready perform this function
         $( document ).ready(function() 
 		{
 			//here we declare variables that we use to generate out list's of courses to display on the page.
@@ -341,20 +342,27 @@ session_start();
 			//Here is where we generate a header.
 			else
 			{
+				//Push the Subject and coursenum into an independent set of arrays if they are new, this is for the button listeners down on the buttom.
 				subject_array.push(cur_subject);
 				courseNum_array.push(cur_courseNum);
+				//Here I generate an unordered list object the append to the courselist div I have on the page.
 			unordered_list = '<ul style="list-style: none" id = "' + id_attribute + '"></ul>'
-			header_text = '<li id ="' + 'h' + id_attribute + '"> <h1>' + cur_subject + " " + cur_courseNum + " Classes" + "</h1></li>";
+			//This line generates header text with an id of "h<id_attribute>"
+			header_text = '<li id ="' + 'h' + id_attribute + '"> <h1>' + cur_subject + " " + cur_courseNum + " Classes" + "</h1></li>";//Generate the list items exactly the same as inside the if statement
             text = '<li class = "classItem" data-subject = "' + cur_subject + '" data-crn = "' + the_array[i][12] + '" data-courseNum = "' + the_array[i][1] + '"data-beginTime = "' + time_array[0] + '" data-endTime = "' + time_array[1] + '" data-beginDate = "' + date_array[0] + '"data-endDate = "' + date_array[1] + '"data-days = "' + the_array[i][9] + '">' + the_array[i][0] + " " + the_array[i][1] + " " + the_array[i][2] + " " + the_array[i][3] + " " + the_array[i][4] + " " + the_array[i][5] + "<br>" + the_array[i][6] + " " + the_array[i][7] + " " + the_array[i][8] + " " + the_array[i][9] + " " + the_array[i][10] + " " + the_array[i][11] + "<br><br>" + "</li>" ;
+				//Append the unordered list to the courselist div
 				$( unordered_list ).appendTo( ".CourseList" );
+				//Append the header list item to the unordered list
 				$( header_text ).appendTo('#' + id_attribute);
+				//Append the class list item to the header
                 $( text ).appendTo('#h' + id_attribute);
 			}
+			//set previous subject and coursenum
 			prev_subject = cur_subject;
 			prev_courseNum = cur_courseNum;
 		}
 		});
-		
+		//On document ready do this function
 		$( document ).ready(function() {
 			//this for loop is used to dynamically create the different listeners based upon how many different courses were chosen.
 			for(var i = 0; i < subject_array.length; i++)
@@ -376,6 +384,7 @@ session_start();
 			var local_startDate = $(this).attr('data-begindate');
 			var local_endDate = $(this).attr('data-enddate');
 			var local_days = $(this).attr('data-days').split('');
+			//This hide's the header for the subject and coursenum that has been clicked on
 			$(local_ulname).hide();
 			//Add any courses with the same CRN to the scheduleList UL
 			$('li[data-crn = "' + local_crn + '"]').each(function(index, element) {
@@ -389,22 +398,30 @@ session_start();
 				}
            	});	//close for each local subject function
 			}//close if statement loop
+			//This Is the logic for finding class conflicts, this is still inside the scope of double click on any list item inside the courselist div.
+			//For each item that has the class ClassItem
 			$('.classItem').each(function(index, element) {
+				//this makes sure we're only dealing with objects inside the courselist div.
 				if(($(this).parents().is('div.CourseList')))
 				{
+					//for the amount of days the class meets.length
 					for(var j = 0; j < local_days.length; j++)
 					{
+						//If the current day we're looking at is found inside the days of this object we're looking at continue, if the days aren't the same there isnt a conflict so we move on to the next day.
 						if($(this).attr('data-days').indexOf(local_days[j]) >= 0)
 						{
+							//Here we get all the times of this current object we're checking
 							var check_startTime = $(this).attr('data-begintime');
 							var check_endTime = $(this).attr('data-endtime');
 							var check_startDate = $(this).attr('data-begindate');
 							var check_endDate = $(this).attr('data-enddate');
+							//then we check if the dates are in conflict, if they are check the times, if not there's no conflict
 							if((check_startDate >= local_startDate && check_startDate <= local_endDate) || (check_endDate >= local_startDate && check_endDate <= local_endDate) || (check_startDate == local_startDate && check_endDate == local_endDate))
 							{
-							
+							//finally the last conflict to check is if the times of the classes themselves conflict, if they do
 								if((check_startTime >= local_startTime && check_startTime <= local_endTime) || (check_endTime >= local_startTime && check_endTime <= local_endTime) || (check_startTime == local_startTime && check_endTime == local_endTime))
 								{
+									//append this current object to out conflict list
 									$(this).appendTo('ul.RemovedList');
 								}//close if time conflict.
 							}//close if date conflict.
@@ -418,39 +435,47 @@ session_start();
 			//on double click per object in the schedule list
 			$('ul.ScheduleList').on('dblclick','li', function(removeScheduleList){
 			var local_subject = $(this).attr('data-subject');
-			var order = $(this).attr('data-order');
 			var local_crn = $(this).attr('data-crn');
 			var local_courseNum = $(this).attr('data-courseNum');
 			var ulname = '#h' + local_subject + local_courseNum;
+			//Show the header again since there will now be a class item appended to it.
 			$(ulname).show();
+			//find list items that matches the course number of the object selected and make sure the subject matches. then append it to the appropriate header.
 			$('li[data-courseNum = "' + local_courseNum + '"]').each(function(index, element) {
+				if($(this).attr('data-subject') == local_subject)
 				$(this).appendTo(ulname);
             });//close for each
 			});//close double click schedule list
 		
-		//on double click per object in conflincting list
+		//on double click per object in conflincting list this is the same as the method above.
 		$('ul.RemovedList').on('dblclick','li', function(conflinctedClassRemove){
 			var local_subject = $(this).attr('data-subject');
 			var local_courseNum = $(this).attr('data-courseNum');
 			var ulname = '#h' + local_subject + local_courseNum;
 			$(ulname).show();
 			$('li[data-courseNum = "' + local_courseNum + '"]').each(function(index, element) {
+				if($(this).attr('data-subject') == local_subject)
 				$(this).appendTo(ulname);
             });
 		});
-		
+		//On clik of the save schedule button.
 		$('#SaveSchedule').click(function(){
+			//Generate a crn_list array
     			var crn_list = [];
+				//based upon the crn's that are inside the schedule list dialog box
 				$('ul.ScheduleList>li').each(function(index, element) {
+					//makes sure the CRN isnt already in the list.
 					if(crn_list.indexOf($(this).attr('data-crn')) == -1)
 					{
-                	crn_list.push($(this).attr('data-crn'));
+						//push the CRN into the list
+                		crn_list.push($(this).attr('data-crn'));
 					}
             	});
-				console.log(crn_list);
-				console.log("running form generate")
+				//Generate the form using the already written method
 				formGenerate(crn_list);
+				//Submit the form with ID #crnlist
 				$('#crnlist').submit();
+				//alert the user so they know what's going on
 			alert("Schedule saved sending you to view your schedule.");
 		});
     });

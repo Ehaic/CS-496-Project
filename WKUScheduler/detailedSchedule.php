@@ -55,9 +55,16 @@ session_start();
         <br>
         <center>
         <?php
-
-            $crn = $_SESSION['crn'];
-
+		//If post is empty use session data, if its not set session data and set CRN
+			if(!empty($_POST['crn']))
+			{
+            $crn = $_POST['crn'];
+			$_SESSION['crn'] = $crn;
+			} else
+			{
+				$crn = $_SESSION['crn'];
+			}
+			
             //connect to the MySQL database
 			$con=mysqli_connect("localhost","Scheduler","BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF","Scheduler2");
 			// Check connection and state if connection failed
