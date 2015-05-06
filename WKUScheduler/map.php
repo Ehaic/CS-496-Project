@@ -138,6 +138,231 @@ This html file is responsible for the design of the webpage which will allow the
             
         </div>
     </div>
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <center><table border = "border">
+        <tr>
+            <th>Dot Color</th>
+            <th>Building Location</th>
+            <th>Course</th>
+        </tr>
+
+            <?php
+                    foreach($results as $aResult){
+                        if($aResult == CH){
+                            echo "<tr>";
+                            echo "<th>";    
+                            echo "<img src='Dots/ch.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == GCC){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img src='Dots/gcc.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == GH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img src='Dots/gh.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == SH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img src='Dots/sh.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == EST){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='est' src='Dots/est.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == PHAC){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='phac' src='Dots/phac.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == AFC){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='afc' src='Dots/afc.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == COHH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='cohh' src='Dots/cohh.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == DA){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='da' src='Dots/da.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == GRH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='grh' src='Dots/grh.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == TCCW){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='tccw' src='Dots/tccw.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == MMTH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='mmth' src='Dots/mmth.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == MCHC){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='mchc' src='Dots/mchc.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == IE){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='ie' src='Dots/ie.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == EBS){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='ebs' src='Dots/ebs.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == SS){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='ss' src='Dots/ss.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == AC){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='ac' src='Dots/ac.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == GWH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='gwh' src='Dots/gwh.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == FS){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='fs' src='Dots/fs.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == HCIC){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='hcic' src='Dots/hcic.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == CRD){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='crd' src='Dots/crd.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == MH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='mh' src='Dots/mh.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }elseif($aResult == TPH){
+                            echo "<tr>";
+                            echo "<th>";
+                            echo "<img class='tph' src='Dots/tph.png'></img>";
+                            echo "</th>";
+                            echo "<th>";
+                            echo $aResult;
+                            echo "</th>";
+                            echo "</tr>";
+                        }
+                    }
+                    
+            ?>
+        
+        </tr>
+    </table></center>
 
 	</body>
 </html>
