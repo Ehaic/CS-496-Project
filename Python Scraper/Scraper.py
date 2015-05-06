@@ -1,19 +1,12 @@
-__author__ = 'Andrew'
 import requests
 import lxml.html as lh
-import re
-
-#Variable to test whether or not to build a list of CRN row's used for parsing the data, if 0 wont build a list
-#if 1 builds a list of CRN rows this only needs to be run once a semester and is used for getting several fields
-#that are designed oddly on the western webpage.  Saves the rows as a txt file so that further testing and parsing
-#can be done without parsing the file 6000 times.
-print("building crn row.")
-build_crn_row_list = 1
-#URL of page for course catalog
+import pymysql
+#import necessary python librarys
+#Set the URL For the western public course catalog
 url = 'https://acsapps.wku.edu/pls/prod/wku_hwsched.P_GetCrse'
-#POST data
+#This is the necessary form data that must be sent to the web page.
 form_data = [
-    ('TERM', '201510'),
+    ('TERM', '201530'),
     ('sel_subj', 'dummy'),
     ('sel_day', 'dummy'),
     ('sel_schd', 'dummy'),
@@ -41,143 +34,143 @@ form_data = [
     ('sel_colcat', 'NONE'),
     ('sel_gecat', 'NONE'),
 ]
-#Grab page using URL and post data
-page1 = requests.post(url, data=form_data)
-
-#Debugging code
-# import http.client as http_client
-# http_client.HTTPConnection.debuglevel = 1
-# 
-# import logging
-# logging.basicConfig() 
-# logging.getLogger().setLevel(logging.DEBUG)
-# requests_log = logging.getLogger("requests.packages.urllib3")
-# requests_log.setLevel(logging.DEBUG)
-# requests_log.propagate = True
-#Code to output page as an html document named test, commented out to save  for later
-#f = open('test.html', 'w')
-#f.write(page1.text)
-#Create parse tree from the string of html in page1
-tree = lh.fromstring(page1.text)
-#temporary storage of row numbers for getting class locations because of
-#strange wku website coding.
-crn_rows_perm = []
-crn_test_list = []
-#regular expression that represents a crn so I can get the row numbers of all classes
-#in the table on the page
-regularExpression = re.compile("\[\'\d{5}\'\]")
-#Grab row numbers of all clases on the page
-
-print("About to parse 6000 times to get crn list")
-
-if build_crn_row_list == 1:
-    for x in range (0,6500):
-        #grab a crn at row x and column 3 should only result in 1 crn in the list at a time.
-        crn_test = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr[' + str(x) + ']/td[3]/p/text()')
-        #if you find a crn at x row append the row number to the list of row numbers
-        if re.match(regularExpression, str(crn_test)):
-            crn_rows_perm.append(x)
-            crn_test_list.append(crn_rows_perm)
-
-print("crn row list is " + len(crn_rows_perm) + " elements long")
-
-
-print("outputting crn list to file")
-if build_crn_row_list == 1:
-    f=open('crn_rows.txt','w')
-    for ele in crn_rows_perm:
-        f.write(str(ele) + '\n')
-    f.close()
-
-if build_crn_row_list == 1:
-    g=open('crns_test_list.txt','w')
-    for ele in crn_test_list:
-        g.write(str(ele) + '\n')
-    g.close()
-
-print("Grabbing easy to parse data.")
-#Grab the easy to parse data.
-crns_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[3]/p/text()')
-subjs_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[4]/p/text()')
-crsenum_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[5]/p/text()')
-sectnum_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[6]/p/text()')
-cred_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[7]/p/text()')
-title_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[8]/a/text()')
-fee_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[10]/p/text()')
-
-#location_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[12]/p/font/text()')
-#days_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[13]/p/text()')
-
-with open('crn_rows.txt', 'r') as f:
-    crn_rows_perm = f.readlines()
-print("starting hard parse 1")
-crn_rows = list(crn_rows_perm)
-location_list = []
-for ele in crn_rows:
-    location_list_temp = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr[' + ele + ']/td[12]/p/font/text()')
-    if location_list_temp == '':
-        location_list.append('TBA')
+#get the the public course catalog page
+page = requests.post(url, data=form_data)
+#Generate a parse tree from the page's HTML
+tree = lh.fromstring(page.text)
+#Parse the necessary information from the page, variable names are self explanatory
+crns_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[3]//text()')
+subjs_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[4]//text()')
+crsenum_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[5]//text()')
+sectnum_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[6]//text()')
+cred_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[7]//text()')
+title_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[8]//text()')
+fee_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[10]//text()')
+location_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[12]//text()')
+days_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[13]//text()')
+times_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[14]//text()')
+accounted_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[15]//text()')
+remaining_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[16]//text()')
+instructor_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[17]//text()')
+dates_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[18]//text()')
+#This removes the extra new line characters from the title list
+while len(title_list) != len(crns_list):
+    for ele in title_list:
+        try:
+            title_list.remove('\n')
+        except:
+            pass
+#Open a connection to the mysql database I know this is hard coded but this script resides on the server and not
+#accesible by anyone but the admin. This user also only has rights to select, update, and insert into the table.
+#It is also only setup to be able to login from the server itself, so even if its unique password were to leak the
+#person with the password would also have to have the server's 64 digit unique password to login into it and then run
+#any queries.
+conn = pymysql.connect(host='localhost', user='Scheduler', passwd='BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF', db='Scheduler2')
+cur = conn.cursor()
+print("Opened mysql connection to database, updating classes and dates tables")
+#While the lists have content pop the element from the list, this block updates the classes and dates tables
+while crns_list:
+    a = crns_list.pop()
+    b = subjs_list.pop()
+    c = crsenum_list.pop()
+    d = sectnum_list.pop()
+    e = cred_list.pop()
+    f = title_list.pop()
+    g = fee_list.pop()
+    h = location_list.pop()
+    i = days_list.pop()
+    j = accounted_list.pop()
+    k = remaining_list.pop()
+    l = times_list.pop()
+    m = dates_list.pop()
+    n = instructor_list.pop()
+    #stringfy the title just to be sure, and remove double quotes, theres only one class that needs this but if I dont do
+    #it it ruins my whole query
+    title_string = str(f)
+    title_string = title_string.replace('"', '')
+    #if the CRN is a blank character it means its an extra section of the course (a lab or extra meeting date)
+    if(a == '\xa0'):
+        query = "INSERT INTO `Scheduler2`.`Dates` (`CRN`, `Location`, `Days`, `Date`, `Time`) " + 'VALUES ("' + str(prev_crn) + '","' + str(h) + '","' + str(i) + '","' + str(m) + '","' + str(l) + '")'
+        cur.execute(str(query))
+        conn.commit()
+    #If the its not a blank CRN then its a normal course, insert the information into the dates and classes tables
     else:
-        location_list.append(str(location_list_temp))
-print("hard parse one finished outputting to txt")
-g=open('location_list.txt','w')
-for ele in location_list:
-    g.write(str(ele) + '\n')
-g.close()
-print("starting hard parse 2")
-crn_rows = list(crn_rows_perm)
-days_list = []
-for ele in crn_rows:
-    days_list_temp = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr[' + ele  + ']/td[13]/p/text()')
-    if days_list_temp == '':
-        days_list.append('TBA')
+        query = "INSERT INTO `Scheduler2`.`Classes` (`CRN` ,`Subject` ,`CourseNum` ,`Section` ,`Credits` ,`Title` , `Fee` , `Accounted`, `Remaining`)" + ' VALUES ("' + str(a) + '","' + str(b) + '","' + str(c) + '","' + str(d) + '","' + str(e) + '","' + str(title_string) + '","' + str(g) + '","' + str(j) + '","' + str(k) + '")'
+        query2 = "INSERT INTO `Scheduler2`.`Dates` (`CRN`, `Time`, `Days`, `Location`, `Date`)" + ' VALUES ("' + str(a) + '","' + str(l) + '","' + str(i) + '","' + str(h) + '","' + str(m) + '")'
+        prev_crn = a
+        cur.execute(str(query))
+        conn.commit()
+        cur.execute(str(query2))
+        conn.commit()
+cur.close()
+conn.close()
+#Parse all the instructors again so we can update the instructors table
+instructor_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[17]//text()')
+instructor_list.reverse()
+#This block generates a list of unique instructors by poping a name from the list adding it to unique instructors
+#and then removing all other instances of that instructors name from the list
+unique_Instructors = []
+while instructor_list:
+    a = str(instructor_list.pop())
+    unique_Instructors.append(a)
+    while instructor_list.count(a):
+        instructor_list.remove(a)
+#This block updates the isntructors table.
+print("Starting Database Update: Instructors")
+conn = pymysql.connect(host='localhost', user='Scheduler', passwd='BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF', db='Scheduler2')
+cur = conn.cursor()
+while unique_Instructors:
+    b = str(unique_Instructors.pop())
+    b = b.replace('"', '')
+    #Special case for TBA
+    if(b == 'TBA'):
+        first = 'TBA'
+        last = ''
     else:
-        days_list.append(str(days_list_temp))
-print("hard parse 2 being output to txt")
-g=open('days_list.txt','w')
-for ele in days_list:
-    g.write(str(ele) + '\n')
-g.close()
-print("final hard parse")
-crn_rows = list(crn_rows_perm)
-times_list = []
-for ele in crn_rows:
-    times_list_temp = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr[' + ele + ']/td[14]/text()')
-    if times_list_temp == '':
-        times_list.append('TBA')
+        m = [x.strip() for x in b.split(',')]
+        first = m.pop()
+        last = m.pop()
+    query = "INSERT INTO `Scheduler2`.`Instructors` (`FirstName`, `LastName`) VALUES (" + '"' + str(first) + '","' + str(last) + '")'
+    cur.execute(str(query))
+    conn.commit()
+cur.close()
+conn.close()
+#now we need to generate unique instructor ID's for each instructor.
+instructor_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[17]//text()')
+instructor_list.reverse()
+crns_list = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr/td[3]//text()')
+crns_list.reverse()
+conn = pymysql.connect(host='localhost', user='Scheduler', passwd='BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF', db='Scheduler2')
+cur = conn.cursor()
+#While there are still CRN's in the list.
+while crns_list:
+    #pop an instructor from the list
+    a = str(instructor_list.pop())
+    a = a.replace('"', '')
+    b = crns_list.pop()
+    #special case for TBA and this date, this has since been fixed but I'll leave it just incase
+    if(a == 'TBA' or a == '08/24-12/11'):
+        first = 'TBA'
+        last = ''
     else:
-        times_list.append(str(times_list_temp))
-print("So much parsing ;_;")
-g=open('times_list.txt','w')
-for ele in times_list:
-    g.write(str(ele) + '\n')
-g.close()
-
-crn_rows = list(crn_rows_perm)
-instructors_list = []
-for ele in crn_rows:
-    instructors_list_temp = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr[' + ele + ']/td[17]/p/text()')
-    if instructors_list_temp == '':
-        instructors_list.append('TBA')
-    else:
-        instructors_list.append(str(instructors_list_temp))
-
-g=open('instructors_list.txt','w')
-for ele in instructors_list:
-    g.write(str(ele) + '\n')
-g.close()
-
-crn_rows = list(crn_rows_perm)
-dates_list = []
-for ele in crn_rows:
-    dates_list_temp = tree.xpath('//*[@id="wrapper"]/div[2]/div[2]/form/table/tr[' + ele + ']/td[18]/text()')
-    if dates_list_temp == '':
-        dates_list.append('TBA')
-    else:
-        instructors_list.append(str(instructors_list_temp))
-print("FINALLY LAST ONE")
-g=open('dates_list.txt','w')
-for ele in dates_list:
-    g.write(str(ele) + '\n')
-g.close()
-print("and done")
+        #this beginning and end white space and splits at the , in instructor name
+        m = [x.strip() for x in a.split(',')]
+        #set first and last name variables
+        first = m.pop()
+        last = m.pop()
+        #run a query to get this professors professor ID
+    selectQuery = 'SELECT `Scheduler2`.`Instructors`.`InstructorID` FROM `Scheduler2`.`Instructors` WHERE `FirstName` = "' + str(first) + '" AND `LastName` = "' + str(last) + '"'
+    cur.execute(selectQuery)
+    #get the instructor ID
+    instructorID = str(cur.fetchone())
+    #its returned with a couple of extra elements (parenthesis and comma) these statements get rid of that
+    instructorID = instructorID.replace("(","")
+    instructorID = instructorID.replace(")","")
+    instructorID = instructorID.replace(",","")
+    #update the classes with the proper instructor ID
+    query = 'UPDATE `Scheduler2`.`Classes` SET `Classes`.`InstructorID`="' + str(instructorID) +'" WHERE CRN = "' + str(b) + '"'
+    cur.execute(str(query))
+    conn.commit()
+cur.close()
+conn.close()
+#All finished
