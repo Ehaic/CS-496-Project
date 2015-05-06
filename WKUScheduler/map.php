@@ -39,21 +39,15 @@ This html file is responsible for the design of the webpage which will allow the
         The tabs and their specified styles.
         -->
         <a href="selectClasses.php">
-        <img style = "position: absolute; bottom: 0; right: 850px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
+        <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
         <a href="schedule.php">
-        <img style = "position: absolute; bottom: 0; right: 700px" src = "Images/schedule.png" alt = "Schedule"></img></a>
+        <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/schedule.png" alt = "Schedule"></img></a>
         <a href="detailedSchedule.php">
-        <img style = "position: absolute; bottom: 0; right: 550px" src = "Images/detailedSchedule.png" alt = "Detailed Schedule"></img></a>
+        <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/detailedSchedule.png" alt = "Detailed Schedule"></img></a>
         <a href="calendar.php">
-        <img style = "position: absolute; bottom: 0; right: 400px" src = "Images/calendar.png" alt = "Calendar"></img></a>
+        <img style = "position: absolute; bottom: 0; right: 300px" src = "Images/calendar.png" alt = "Calendar"></img></a>
         <a href="map.php">
-        <img style = "position: absolute; bottom: 0; right: 250px" src = "Images/mapSelected.png" alt = "Map"></img></a>
-
-        <!--
-        The login and register buttons with their specified styles.
-        -->
-        <a style = "position: absolute; bottom: 0; right: 120px; color: white" href="">Login</a>
-        <a style = "position: absolute; bottom: 0; right: 50px; color: white" href="">Register</a>
+        <img style = "position: absolute; bottom: 0; right: 150px" src = "Images/mapSelected.png" alt = "Map"></img></a>
 		</div>
     
         <!--
