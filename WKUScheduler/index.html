@@ -1,14 +1,35 @@
+<!--
+This html file is responsible for the design of the webpage which will serve as the home webpage for the website.
+-->
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<title > WKU Class Scheduler </title>
-		<link rel="stylesheet" type="text/css" href="CSS/scheduler.css">
+        <!--
+        The css file used for web design.
+         -->
+        <link rel="stylesheet" type="text/css" href="CSS/scheduler.css">
 	</head>
     
+    <!--
+    A div class within the css file, scheduler.css, specifying margins, width, and background color.
+    -->
 	<div class="wrapper">
     
+        <!--
+        A div class within the css file, scheduler.css, specifying the webpage's header's positioning, background color, and float.
+        -->
 		<div class="header">
+            
+        <!--
+        The specified location for web application's logo image.
+        -->
         <img style = "float: left" src = "Images/logo.png" alt = "WKU Class Scheduler"></img>
+        
+        <!--
+        The tabs and their specified styles.
+        -->
         <a href="selectClasses.php">
         <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
         <a href="schedule.php">
@@ -18,13 +39,22 @@
         <a href="map.php">
         <img style = "position: absolute; bottom: 0; right: 300px" src = "Images/map.png" alt = "Map"></img></a>
 
+        <!--
+        The login and register buttons with their specified styles.
+        -->
         <a style = "position: absolute; bottom: 0; right: 120px; color: white" href="">Login</a>
         <a style = "position: absolute; bottom: 0; right: 50px; color: white" href="">Register</a>
 
 		</div>
     
+        <!--
+        The div class within the css file, scheduler.css, specifying the webpage's content's background color, float, and width.
+        -->
 		<div class="content">
         <br>
+        <!--
+        Website introduction.
+        -->
         <p style = "text-align: center; font-size: x-large"> Welcome to the WKU Class Scheduler!</p><center>
         <p style = "margin-right: 200px; margin-left: 200px">Scheduling classes is stressful. It is one of the most stressful decisions you'll make every semester at Western Kentucky University. What classes conflict with others? How will you decide which classes are the best choice for your college career? What classes will interfere with your job, your studying, and your social life?!<br><br>
 
@@ -36,7 +66,11 @@
 
         To get started, begin by selecting your potential classes.</p></center>
 		</div>
-    
+
+    <!--
+    Ending tags.
+    -->
+
 	</div>
 
 	</body>

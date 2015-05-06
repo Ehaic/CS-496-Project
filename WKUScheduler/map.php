@@ -14,6 +14,9 @@ This html file is responsible for the design of the webpage which will allow the
         The css file used for web design.
          -->
         <link rel="stylesheet" type="text/css" href="CSS/scheduler.css">
+        <!--
+        Jquery used.
+        -->
         <script src="JS/jquery-2.1.3.min.js"></script>
 	</head>
     
@@ -63,7 +66,13 @@ This html file is responsible for the design of the webpage which will allow the
     
 	</div>
 
+    <!--
+    The div class within the css file, scheduler.css, padding the map correctly
+    -->
     <div class="position">
+        <!--
+       The div class within the css file, scheduler.css, specifying the position as relative to make positioning more dynamic.
+        -->
         <div class="container">
             
             <?php
@@ -75,16 +84,26 @@ This html file is responsible for the design of the webpage which will allow the
 				//store all questions in result variable
 				$crn = $_POST['crn'];
 				$_SESSION['crn'] = $crn;
-				echo "<img class='map' src='Images/campusMap.jpg' alt='Campus Map!'>";
+				
+                /*
+                The class within the css files, scheduler.css, specifying the campus map position as absolute, sets the 
+                x y integers, and place it at z-index 1 to position image below any dots placed on the map.
+                */
+                echo "<img class='map' src='Images/campusMap.jpg' alt='Campus Map!'>";
 				$resultArr = array();
-				for($i = 0; $i < count($crn); $i++)
+				//Get required location data for map, storing it in an array.
+                for($i = 0; $i < count($crn); $i++)
 				{
 				$results = mysqli_query($con,"SELECT Location FROM Dates WHERE CRN = '$crn[$i]'");
 				$row = mysqli_fetch_array($results);
 				$results = $row['Location'];
-				$results = explode(" ", $results);
+				//It splits the string into an array, adding a space character.
+                $results = explode(" ", $results);
 				array_push($resultArr,$results[0]);
+                //For each results in the array...
                 foreach($results as $aResult){
+                    //If if contains a certain location value, print its corresponding dot on the right spot of the map.
+                    //Checks for each building.
                     if($aResult == CH){
                             echo "<img class='ch' src='Dots/ch.png'></img>";
                         }elseif($aResult == GCC){
@@ -139,7 +158,13 @@ This html file is responsible for the design of the webpage which will allow the
         </div>
     </div>
     
+    <!--
+    Apologies for the breaks. The key appears behind the campus otherwise.
+    -->
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <!--
+    Key to indicate building location and dot colors which correlate to courses.
+    -->
     <center><table border = "border">
         <tr>
             <th>Dot Color</th>
@@ -148,6 +173,12 @@ This html file is responsible for the design of the webpage which will allow the
         </tr>
 
             <?php
+                    /*
+                    Building a table through a for loop.
+                    If a certain location is found with an array using a query, print its dot image, print that location, 
+                    and print the course number. Inbetween that are HTML brackets which indicate when it create extra rows
+                    and columns.
+                    */
                     foreach($results as $aResult){
                         if($aResult == CH){
                             echo "<tr>";
@@ -361,6 +392,9 @@ This html file is responsible for the design of the webpage which will allow the
                     
             ?>
         
+        <!--
+        Ending tags for the doc.
+        -->
         </tr>
     </table></center>
 
