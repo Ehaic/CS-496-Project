@@ -1,7 +1,7 @@
-<!--
+/*
 Specifies the margin, width, and background color of the website's wrapper. The wrapper defines the layout of the content, which 
 includes the header and content tags.
--->
+*/
 .wrapper
 {
    margin: 0px auto;
@@ -9,9 +9,9 @@ includes the header and content tags.
    background-color: #000000;
 }
 
-<!--
+/*
 Specifies the float, width, background color, and position of the website header.
--->
+*/
 .header
 {
    float: left;
@@ -20,9 +20,9 @@ Specifies the float, width, background color, and position of the website header
     position: relative;
 }
 
-<!--
+/*
 Specifies the float, width, and background color for the content of the website.
--->
+*/
 .content
 {
    float: left;
@@ -30,9 +30,9 @@ Specifies the float, width, and background color for the content of the website.
    background-color: #e8e7e7;
 }
 
-<!--
+/*
 Specifies the margin top, the float, width, and the background color of the footer.
--->
+*/
 .footer
 {
     margin-top: 355px;
@@ -41,9 +41,9 @@ Specifies the margin top, the float, width, and the background color of the foot
    background-color: #ffffff;
 }
 
-<!--
+/*
 Specifies the width, padding, margin, font size, and background color of the website's body.
--->
+*/
 body 
 {
     width: 100%;
@@ -53,24 +53,24 @@ body
    background-color: #e8e7e7;
 }
 
-<!--
+/*
 Pads the map correctly
--->
+*/
 .position
 {
     padding: 200px;
 }
 
-<!--
+/*
 Positions relatively.
--->
+*/
 .container{
     position: relative;
 }
 
-<!--
+/*
 Positions absolutely, sets the x y integers, and place it at z-index 1 to place below any dots placed on the map.
--->
+*/
 .map{
     position:absolute;
     top: 0px;
@@ -78,9 +78,9 @@ Positions absolutely, sets the x y integers, and place it at z-index 1 to place 
     z-index: 1;
 }
 
-<!--
+/*
 Positions CH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .ch{
     position:absolute;
     top: 140px;
@@ -88,9 +88,9 @@ Positions CH dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index: 3;
 }
 
-<!--
+/*
 Positions GCC dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .gcc{
     position:absolute;
     top: 170px;
@@ -98,9 +98,9 @@ Positions GCC dot as absolute, sets its x y coordinates, and sets the z-index so
     z-index: 2;
 }
 
-<!--
+/*
 Positions GH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .gh{
     position:absolute;
     top: 225px;
@@ -108,9 +108,9 @@ Positions GH dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index: 4;
 }
 
-<!--
+/*
 Positions SH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .sh{
     position:absolute;
     top: 170px;
@@ -118,9 +118,9 @@ Positions SH dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index: 5;
 }
 
-<!--
+/*
 Positions EST dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .est{
     position:absolute;
     top: 203px;
@@ -128,9 +128,9 @@ Positions EST dot as absolute, sets its x y coordinates, and sets the z-index so
     z-index: 6;
 }
 
-<!--
+/*
 Positions PHAC dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .phac{
     position:absolute;
     top: 345px;
@@ -138,9 +138,9 @@ Positions PHAC dot as absolute, sets its x y coordinates, and sets the z-index s
     z-index: 7;
 }
 
-<!--
+/*
 Positions COHH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .cohh{
     position:absolute;
     top: 170px;
@@ -148,9 +148,9 @@ Positions COHH dot as absolute, sets its x y coordinates, and sets the z-index s
     z-index: 8;
 }
 
-<!--
+/*
 Positions DA dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .da{
     position: absolute;
     top: 203px;
@@ -158,9 +158,9 @@ Positions DA dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index: 9;
 }
 
-<!--
+/*
 Positions GRH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .grh{
     position: absolute;
     top: 377px;
@@ -168,9 +168,9 @@ Positions GRH dot as absolute, sets its x y coordinates, and sets the z-index so
     z-index: 10;
 }
 
-<!--
+/*
 Positions TCCW dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .tccw{
     position: absolute;
     top: 177px;
@@ -178,9 +178,9 @@ Positions TCCW dot as absolute, sets its x y coordinates, and sets the z-index s
     z-index: 11;
 }
 
-<!--
+/*
 Positions MMTH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .mmth{
     position: absolute;
     top: 347px;
@@ -188,9 +188,9 @@ Positions MMTH dot as absolute, sets its x y coordinates, and sets the z-index s
     z-index: 12;
 }
 
-<!--
+/*
 Positions MCHC dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .mchc{
     position: absolute;
     top: 369px;
@@ -198,9 +198,9 @@ Positions MCHC dot as absolute, sets its x y coordinates, and sets the z-index s
     z-index: 13;
 }
 
-<!--
+/*
 Positions IE dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .ie{
     position:absolute;
     top: 206px;
@@ -208,9 +208,9 @@ Positions IE dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index 14;
 }
 
-<!--
+/*
 Positions SS dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .ss{
     position:absolute;
     top: 265px;
@@ -218,9 +218,9 @@ Positions SS dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index 15;
 }
 
-<!--
+/*
 Positions AC dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .ac{
     position: absolute;
     top: 307px;
@@ -228,9 +228,9 @@ Positions AC dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index: 16;
 }
 
-<!--
+/*
 Positions GWH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .gwh{
     position: absolute;
     top: 135px;
@@ -238,9 +238,9 @@ Positions GWH dot as absolute, sets its x y coordinates, and sets the z-index so
     z-index: 17;
 }
 
-<!--
+/*
 Positions FS dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .fs{
     position: absolute;
     top: 179px;
@@ -248,9 +248,9 @@ Positions FS dot as absolute, sets its x y coordinates, and sets the z-index so 
     z-index: 18;
 }
 
-<!--
+/*
 Positions HCIC dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .hcic{
     position: absolute;
     top: 298px;
@@ -258,9 +258,9 @@ Positions HCIC dot as absolute, sets its x y coordinates, and sets the z-index s
     z-index: 19;
 }
 
-<!--
+/*
 Positions CRD dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .crd{
     position: absolute;
     top: 523px;
@@ -269,9 +269,9 @@ Positions CRD dot as absolute, sets its x y coordinates, and sets the z-index so
     visibility: hidden;
 }
 
-<!--
+/*
 Positions MH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .mh{
     position: absolute;
     top: 232px;
@@ -280,9 +280,9 @@ Positions MH dot as absolute, sets its x y coordinates, and sets the z-index so 
     visibility: hidden;
 }
 
-<!--
+/*
 Positions TPH dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .tph{
     position: absolute;
     top: 341px;
@@ -291,9 +291,9 @@ Positions TPH dot as absolute, sets its x y coordinates, and sets the z-index so
     visibility: hidden;
 }
 
-<!--
+/*
 Positions EBS dot as absolute, sets its x y coordinates, and sets the z-index so as the map is placed below the dot.
--->
+*/
 .ebs{
     position: absolute;
     top: 212px;
