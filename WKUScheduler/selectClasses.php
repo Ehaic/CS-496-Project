@@ -29,16 +29,17 @@ session_start();
         <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClassesSelected.png" alt = "Select Classes"></img></a>
         <a href="schedule.php">
         <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/schedule.png" alt = "Schedule"></img></a>
+        <a href="detailedSchedule.php">
+        <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/detailedSchedule.png" alt = "Detailed Schedule"></img></a>
         <a href="calendar.php">
-        <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/calendar.png" alt = "Calendar"></img></a>
+        <img style = "position: absolute; bottom: 0; right: 300px" src = "Images/calendar.png" alt = "Calendar"></img></a>
         <a href="map.php">
-        <img style = "position: absolute; bottom: 0; right: 300px" src = "Images/map.png" alt = "Map"></img></a>
-        <a style = "position: absolute; bottom: 0; right: 120px; color: white" href="">Login</a>
-        <a style = "position: absolute; bottom: 0; right: 50px; color: white" href="">Register</a>
+        <img style = "position: absolute; bottom: 0; right: 150px" src = "Images/map.png" alt = "Map"></img></a>
 		</div>
     
-		<div class="content" style="margin-left: 200px; margin-top: 40px; font-size:18px">
+		<div class="content" style="font-size:20px">
             <br>
+            <center>
             Select Class Subject:
             <br>
             <form action = "schedule.php" method = "post"> 
@@ -69,7 +70,7 @@ session_start();
             <br><br>Submit Classes<br>
             <button type="submit">Submit Classes</button>
             </form>
-        
+            </center>
 		</div>
     
 	</div>
