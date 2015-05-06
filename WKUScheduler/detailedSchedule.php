@@ -1,8 +1,8 @@
 <!--
-This html file is responsible for the design of the webpage which will allow the user of the web application to view their generated detailed schedule.
+This html file is responsible for the webpage which will allow the user of the web application to view their generated detailed schedule.
 -->
 <?php
-// Start the session
+// Start the session to retrieve session data
 session_start();
 ?>
 <!DOCTYPE html>
@@ -35,12 +35,15 @@ session_start();
         The tabs and their specified styles.
         -->
         <a href="selectClasses.php">
-       <a href="selectClasses.php">
-        <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClasses.png" alt = "Select Classes"></img></a>
+        <a href="selectClasses.php">
+            
+        <img style = "position: absolute; bottom: 0; right: 750px" src = "Images/selectClasses.png" alt = "Select Classes">
+        </img></a>
         <a href="schedule.php">
         <img style = "position: absolute; bottom: 0; right: 600px" src = "Images/schedule.png" alt = "Schedule"></img></a>
         <a href="detailedSchedule.php">
-        <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/detailedScheduleSelected.png" alt = "Detailed Schedule"></img></a>
+        <img style = "position: absolute; bottom: 0; right: 450px" src = "Images/detailedScheduleSelected.png" 
+        alt = "Detailed Schedule"></img></a>
         <a href="calendar.php">
         <img style = "position: absolute; bottom: 0; right: 300px" src = "Images/calendar.png" alt = "Calendar"></img></a>
         <a href="map.php">
@@ -55,24 +58,32 @@ session_start();
         <br>
         <center>
         <?php
-
+            //Save our session data that was passed from schedule to a array variable
             $crn = $_SESSION['crn'];
 
             //connect to the MySQL database
-			$con=mysqli_connect("localhost","Scheduler","BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF","Scheduler2");
+	       $con=mysqli_connect("localhost","Scheduler",
+            "BUUFTeyqAtMPFaROzBuwvMfcUPUnuvafvTOeZDg3XFJ1hGaGSrYdMrRGGpFLfRTF","Scheduler2");
 			// Check connection and state if connection failed
 			if (mysqli_connect_errno())
 		  		echo "Failed to connect to MySQL: " . mysqli_connect_error();  
 			
+            //Query the database for all information needed for a detailed schedule and save it the variable result
+            //The last line specifies that the CRNS found match the ones found in array CRN, which hold our passed session data
 			 $result = mysqli_query($con,"SELECT Classes.CRN, Classes.Subject, Classes.CourseNum, Classes.Section, Classes.Credits, Classes.Title, Classes.Fee, Classes.Accounted, Classes.Remaining, Instructors.InstructorID, Instructors.FirstName, Instructors.LastName, Dates.Time, Dates.Days, Dates.Location, Dates.Date 
                                         FROM Classes, Instructors, Dates 
                                         WHERE Classes.InstructorID = Instructors.InstructorID 
                                         AND Dates.CRN = Classes.CRN 
                                         AND Classes.CRN in (".implode(', ',$crn).")");
-			echo "<table border = 1 style = 'background-color: white'>";
+			
+            //begin creation of a table
+            echo "<table border = 1 style = 'background-color: white'>";
+            //create table headers to label the data echoed
             echo "<tr><th>CRN</th><th>Subject</th><th>Course Number</th><th>Title</th><th>Section</th><th>Credits</th>
             <th>Fee</th><th>Accounted</th><th>Remaining</th><th>Professor First Initial</th><th>Professor Last Name</th>
             <th>Time</th><th>Days</th><th>Location</th><th>Date</th>";
+    
+            //while we have still have results from our query, print them in our html table
 			while($row = mysqli_fetch_array($result)) 
 			{
                 echo "<tr><td>";
@@ -107,6 +118,7 @@ session_start();
                 echo $row['Date'];
                 echo "</td></tr>";
   			}
+            //close our table tags
             echo "</table>";
            
             ?>
