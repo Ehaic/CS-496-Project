@@ -195,62 +195,79 @@ session_start();
             $courseNum = array_map('strval', $courseNum);
             //Break for space and organization
             echo "<br>";
-
+            //Loop for the length of the $subject array.
             for($i = 0; $i < count($subject); $i++)
             {
-                //Allows to round down to numbers
+                //Create a variable and establish its value as the value in the courseNum array at index i rounded down (ex: 496 rounds to 4)
                 $highestNum = floor(intval($courseNum[$i])/100);
+                //Establish the index of the maximum vlue as the current index i
                 $maxIndex = $i;
-
+                //Loop for the length of the $subject array minus the current value of index i
                 for($j = $i; $j < count($subject); $j++)
                 {
+                	//If the value in the courseNum array at index j rounded down is greater than the previously established highest value, execute the following code.
                     if(floor(intval($courseNum[$j])/100) > $highestNum)
                     {
+                    	//Update the highestNum and maxIndex variables with the new values.
                         $highestNum = floor(intval($courseNum[$j])/100);
                         $maxIndex = $j;
                     }
                 }
-                
+                //Create variables to hold the current values of the subject and courseNum arrays at index i
                 $tempSubject = $subject[$i];
                 $tempCourse = $courseNum[$i];
+                //Create variables to hold the current values of the subject and courseNum arrays at index indicated by the maxIndex variable
                 $newSubject = $subject[$maxIndex];
                 $newCourse = $courseNum[$maxIndex];
-
+                //Change the current values of the subject and courseNum arrays at index i to the values held by the newSubject and newCourse variables respectfully.
                 $subject[$i] = $newSubject;
                 $courseNum[$i] = $newCourse;
+               	//Change the current values of the subject and courseNum arrays at index i to the values held by the newSubject and newCourse variables respectfully.
                 $subject[$maxIndex] = $tempSubject;
                 $courseNum[$maxIndex] = $tempCourse;
             }
-
+            //Create a new array to hold the amount of sections available for specified courses
             $count = array();
+            //Loop for the length of the $subject array
             for($i = 0; $i < count($subject); $i++)
             {
+            	//Create and establish variables to hold the values from the subejct and courseNum arrays respectfully.
                 $subj = $subject[$i];
                 $cNum = $courseNum[$i];
+                //Create and run a query to list a count of the number of sections available where the course name and number equal the subj and cNum variables
                 $result = mysqli_query($con,"SELECT COUNT(DISTINCT CRN) AS ClassCount FROM Classes WHERE Subject = '$subj' AND CourseNum = '$cNum'");
-
+                //While there are results for the query that was just run, execute the following code.
                 while($row = mysqli_fetch_array($result))
                 {
+                	//Push the current value into the $count array
                     array_push($count, $row['ClassCount']);
                 }
             }
-
+            //Loop for the length of the $subject array minus 1
             for($i = 1; $i < count($subject); $i++)
             {
+            	//If the value in the courseNum array at index i rounded down is greater than the value in the courseNum array at 
+            	//   index i-1 rounded down, execute the following code
                 if(floor(intval($courseNum[$i])/100) == floor(intval($courseNum[$i-1])/100))
                 {
+                	//If the value in the count array at index i is less than the value in the count array at index i - 1, execute the following code.
                     if($count[$i] < $count[$i - 1])
                     {
+                    	//Create variables to hold the current values of the count, subject, and courseNum arrays at index i - 1
                         $tempCount = $count[$i-1];
                         $tempSubject = $subject[$i-1];
                         $tempCourse = $courseNum[$i-1];
+                        //Create variables to hold the current values of the count, subject, and courseNum arrays at index i
                         $newCount = $count[$i];
                         $newSubject = $subject[$i];
                         $newCourse = $courseNum[$i];
-
+                      	//Change the current values of the subject, courseNum, and count arrays at index i - 1 to the values held by the newSubject,
+                      	//   newCourse, and newCount variables respectfully.
                         $subject[$i-1] = $newSubject;
                         $courseNum[$i-1] = $newCourse;
                         $count[$i-1] = $newCount;
+                        //Change the current values of the subject, courseNum, and count arrays at index i - 1 to the values held by the tempSubject,
+                      	//   tempCourse, and tempCount variables respectfully.
                         $subject[$i] = $tempSubject;
                         $courseNum[$i] = $tempCourse;
                         $count[$i] = $tempCount;
@@ -259,10 +276,11 @@ session_start();
             }
             //Break for space and organization
             echo "<br>";
-
+            //Loop for the length of the $subject array
             for($i = 0; $i < count($subject); $i++)
             {
                 echo "<br>";
+                //Create and establish variables to hold the values from the subejct and courseNum arrays respectfully.
                 $subj = $subject[$i];
                 $cNum = $courseNum[$i];
                 //store all questions in result variable
@@ -273,6 +291,7 @@ session_start();
                 //while we still have questions in result
                 while($row = mysqli_fetch_array($result)) 
                 {
+                	//Create an array to hold the results of the recent query and push future results for that query into that array.
 					$temp_Array = array($row['Subject'] , $row['CourseNum'],$row['Credits'], $row['Title'], $row['Fee'], $row['Remaining'], $row['FirstName'], $row['LastName'], $row['Time'], $row['Days'], $row['Location'], $row['Date'], $row['CRN']);
 					array_push($Courses_Array, $temp_Array);
                 }
@@ -436,6 +455,15 @@ session_start();
 		});
     });
 		</script>
+		<!--Establish a script shell that will execute a section of javascript.-->
+		<script type="text/javascript">
+		//When the document is ready, execute the following code.
+        $(document).ready(function(e) {
+        	//Print an alert message to pop up onscreen. The message will give the user instructions on how to navigate the page and 
+        	//   comfirm their list of courses for the other pages to draw from.
+            alert("- Double-click on a class name to add it to your schedule (listed on the right). Different class times for the selected course will be added to the Removed Classes list (on the left)\n- To remove a course, double-click on it within the Schedule list or the Removed Courses list\n\nAfter you have built your schedule, hit the Save Schedule button.")
+        });
+        </script>
        </center>
      </div>
    </div>
