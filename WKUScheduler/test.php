@@ -10,6 +10,13 @@ session_start();
 </head>
 <?php
 print_r($_SESSION['crn']);
+$sid = session_id();
+$sid = session_id();
+if($sid) {
+    echo "Session exists!";
+} else {
+    echo "SESSION DOESNT EXIST";
+}
 ?>
 <body>
 </body>

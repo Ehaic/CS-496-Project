@@ -6,10 +6,13 @@ session_start();
    <head>
    <title >WKU Class Scheduler</title>
    <link rel="stylesheet" type="text/css" href="CSS/scheduler.css">
+   <!-- Import jquery's style sheet for our dialogue boxes-->
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<!-- Import Jquery library -->
    <script src="JS/jquery-2.1.3.min.js"></script>
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-      <style>
+      <!-- Set the style of the dialogue boxes -->
+	  <style>
             .no-close .ui-dialog-titlebar-close
             {
                 display: none;
@@ -23,7 +26,7 @@ session_start();
                 left:0px;
             }        
         </style>
-        
+        <!-- here we create the dialogue boxes on the page and bind them to the left bottom and right bottom of the window -->
         <script>
         $(function() {
             $( "#removed" ).dialog({
@@ -42,7 +45,7 @@ session_start();
             maxHeight: 400,
             position:{ my: 'right bottom', at: 'right bottom', of: window }});
         });
-		
+		<!-- This function is used to parse the time from the database which is a string into a number so that it can be compared to other times to find class conflicts -->
 		function parseTime(a) {
 			//begin the process of parsing a time from time class's time string
 			//first get the string of the class we're currently building a list item for.
@@ -100,37 +103,43 @@ session_start();
 			return finishedProduct;
 		}
    </script>
-   <!--not sure why but I had to declare this function in a seperate script tag.-->
+   <!--not sure why but I had to declare this function in a seperate script tag I think it has something to do with return statements this function is pretty much the same as the parseTime function except i does it for the dates, it multiplies the month value by 12.-->
    <script type="text/javascript">
    function parseDate(a){
 	   //break down the passed date into a month and day that can be represented as a single number
 	date_arr = a.split('-');
 	begin_date = date_arr[0];
 	end_date = date_arr[1];
+	//Split the month and day
 	begin_date = begin_date.split('/');
 	end_date = end_date.split('/');
+	//Set the month and day variables
 	begin_month = begin_date[0];
 	begin_day = begin_date[1];
 	end_month = end_date[0];
 	end_day = end_date[1];
+	//create the final numbers and addd them to an array
 	begin_date = (12 * begin_month) + begin_day;
 	end_date = (12 * end_month) + end_day;
 	arr = [];
 	arr.push(begin_date);
 	arr.push(end_date);
+	//return the array we created
 	return arr;
    }
    </script>
    <!-- another method -->
    <script type="text/javascript">
+   //This function generates a hidden form that is used to send the data to the next PHP page in the form of $_POST data
    function formGenerate(a)
    {
+	   //For array length that is passed to this function
 	   for(var i = 0; i < a.length; i++)
 	   {
+		 //Create a text string that is a hidden input to contain the CRN from the array
 	  	 var text = "<input type = 'hidden' name = 'crn[]' value = '" + a[i] + "'/>"
-		 console.log(text);
+		 //Append our text as a new object the the object that has the ID value of crnlist which is a <form>
 		 $(text).appendTo('#crnlist');
-		 console.log(text);
 	   }
    }
    </script>
@@ -165,8 +174,10 @@ session_start();
        <center>
          <div class = "CourseList"></div>
          <br>
+         <!-- button to submit their generated schedule -->
     	<button id="SaveSchedule">Save Schedule</button>
-        <form action="map.php" id="crnlist" method="post"></form>
+        <!-- hidden form to send post data to detailed schedule page -->
+        <form action="detailedSchedule.php" id="crnlist" method="post"></form>
 	</head>
    	   <?php
             //connect to the MySQL database
@@ -267,12 +278,14 @@ session_start();
                 }
             }
         ?>
+        <!-- here is the javascript that generates the list of courses from the mysql query above. -->
          <script type="text/javascript">
 		// pass PHP variable declared above to JavaScript variable
 		var the_array = <?php echo json_encode($Courses_Array) ?>;
 		var arrayLength = the_array.length;
 		</script> 
          <script>
+		 //Variable decleration
 		 var subject_array = [];
 		 var courseNum_array = [];
 		 var crn = null;
@@ -286,31 +299,34 @@ session_start();
 			var text = null;
 			var header_text = null;
 			var unordered_list = null;
-			var orderNum = null;
 			//this for loop generates headers, unordered lists, and list items for every item in the query.
     		for(var i = 0; i < arrayLength; i++)
 			{
 			cur_subject = the_array[i][0];
 			cur_courseNum = the_array[i][1];
+			//I generate an ID from the coursenum and subject to be used in the HTML tag's to uniquely identify items.
 			id_attribute = cur_subject + cur_courseNum;
 			time_array = parseTime(the_array[i][8]);
 			date_array = parseDate(the_array[i][11]);
 			//here is where we build each individual list item
+			//This if statement is used to build headers for the classes, if the previous coursenum is different from the current coursenum and subject then we need to generate a header instead of a list item.
 			if(cur_subject == prev_subject && cur_courseNum == prev_courseNum)
 			{
-				 text ='<li class = "classItem" data-subject = "' + cur_subject + '" data-order = "' + orderNum + '" data-crn = "' + the_array[i][12] + '" data-courseNum = "' + the_array[i][1] + '"data-beginTime = "' + time_array[0] + '" data-endTime = "' + time_array[1] + '" data-beginDate = "' + date_array[0] + '"data-endDate = "' + date_array[1] + '"data-days = "' + the_array[i][9] + '">' + the_array[i][0] + " " + the_array[i][1] + " " + the_array[i][2] + " " + the_array[i][3] + " " + the_array[i][4] + " " + the_array[i][5] + "<br>" + the_array[i][6] + " " + the_array[i][7] + " " + the_array[i][8] + " " + the_array[i][9] + " " + the_array[i][10] + " " + the_array[i][11] + "<br><br>" + "</li>";
+				//This looks confusing but its really just an HTML list item containing all the information from the query with some extra HTML5 data for finding conflicts.
+				//each finished item looks like:
+				//<li class="classItem" data-subject="<subject>" data-crn="<crn>" data-courseNum="<courseNum> data-beginTime="<beginTime>" data-endTime="<endTime>" data-beginDate="<beginDate>" data-endDate="<endDate>" data-days="<days>">Then a string of the class information</li>
+				//this is then appended to a header that has the unique ID that I generated earlier
+				 text ='<li class = "classItem" data-subject = "' + cur_subject + '" data-crn = "' + the_array[i][12] + '" data-courseNum = "' + the_array[i][1] + '"data-beginTime = "' + time_array[0] + '" data-endTime = "' + time_array[1] + '" data-beginDate = "' + date_array[0] + '"data-endDate = "' + date_array[1] + '"data-days = "' + the_array[i][9] + '">' + the_array[i][0] + " " + the_array[i][1] + " " + the_array[i][2] + " " + the_array[i][3] + " " + the_array[i][4] + " " + the_array[i][5] + "<br>" + the_array[i][6] + " " + the_array[i][7] + " " + the_array[i][8] + " " + the_array[i][9] + " " + the_array[i][10] + " " + the_array[i][11] + "<br><br>" + "</li>";
                 $( text ).appendTo('#h' + id_attribute);
-				orderNum++;
 			}
+			//Here is where we generate a header.
 			else
 			{
-				orderNum = 0;
 				subject_array.push(cur_subject);
 				courseNum_array.push(cur_courseNum);
 			unordered_list = '<ul style="list-style: none" id = "' + id_attribute + '"></ul>'
-			header_text = '<li id ="' + 'h' + id_attribute + '" data-order = "' + orderNum + '"> <h1>' + cur_subject + " " + cur_courseNum + " Classes" + "</h1></li>";
-			orderNum++;
-            text = '<li class = "classItem" data-subject = "' + cur_subject + '" data-order = "' + orderNum + '" data-crn = "' + the_array[i][12] + '" data-courseNum = "' + the_array[i][1] + '"data-beginTime = "' + time_array[0] + '" data-endTime = "' + time_array[1] + '" data-beginDate = "' + date_array[0] + '"data-endDate = "' + date_array[1] + '"data-days = "' + the_array[i][9] + '">' + the_array[i][0] + " " + the_array[i][1] + " " + the_array[i][2] + " " + the_array[i][3] + " " + the_array[i][4] + " " + the_array[i][5] + "<br>" + the_array[i][6] + " " + the_array[i][7] + " " + the_array[i][8] + " " + the_array[i][9] + " " + the_array[i][10] + " " + the_array[i][11] + "<br><br>" + "</li>" ;
+			header_text = '<li id ="' + 'h' + id_attribute + '"> <h1>' + cur_subject + " " + cur_courseNum + " Classes" + "</h1></li>";
+            text = '<li class = "classItem" data-subject = "' + cur_subject + '" data-crn = "' + the_array[i][12] + '" data-courseNum = "' + the_array[i][1] + '"data-beginTime = "' + time_array[0] + '" data-endTime = "' + time_array[1] + '" data-beginDate = "' + date_array[0] + '"data-endDate = "' + date_array[1] + '"data-days = "' + the_array[i][9] + '">' + the_array[i][0] + " " + the_array[i][1] + " " + the_array[i][2] + " " + the_array[i][3] + " " + the_array[i][4] + " " + the_array[i][5] + "<br>" + the_array[i][6] + " " + the_array[i][7] + " " + the_array[i][8] + " " + the_array[i][9] + " " + the_array[i][10] + " " + the_array[i][11] + "<br><br>" + "</li>" ;
 				$( unordered_list ).appendTo( ".CourseList" );
 				$( header_text ).appendTo('#' + id_attribute);
                 $( text ).appendTo('#h' + id_attribute);
@@ -424,3 +440,4 @@ session_start();
      </div>
    </div>
 </html>
+
